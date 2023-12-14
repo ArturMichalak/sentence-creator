@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeferredValue, useEffect, useState } from "react";
+import { useCallback, useDeferredValue, useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import { useForm } from "react-hook-form";
 
@@ -32,11 +32,14 @@ export default function Form(props: FormProps) {
   const sentence = useDeferredValue(rawSentence);
   const translation = useDeferredValue(rawTranslation);
 
-  const basicText = (text?: string) =>
-    text
-      ?.trim()
-      .replaceAll(/[.,\s]/g, "")
-      .toLocaleLowerCase();
+  const basicText = useCallback(
+    (text?: string) =>
+      text
+        ?.trim()
+        .replaceAll(/[.,\s]/g, "")
+        .toLocaleLowerCase(),
+    []
+  );
 
   useEffect(() => {
     const controller = new AbortController();
