@@ -15,8 +15,8 @@ interface FormProps {
 }
 
 export default function Form(props: FormProps) {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
+  const width = globalThis.innerWidth;
+  const height = globalThis.innerHeight;
   const {
     handleSubmit,
     control,
