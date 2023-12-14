@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useDeferredValue, useEffect, useState } from "react";
-import Confetti from "react-confetti";
-import { useForm } from "react-hook-form";
+import { useCallback, useDeferredValue, useEffect, useState } from 'react';
+import Confetti from 'react-confetti';
+import { useForm } from 'react-hook-form';
 
-import TextArea from "@/content/text-area";
-import VoiceCloud from "@/content/voice-cloud";
-import getSentence from "@/services/get-sentence";
-import getTranslation from "@/services/get-translation";
+import TextArea from '@/content/text-area';
+import VoiceCloud from '@/content/voice-cloud';
+import getSentence from '@/services/get-sentence';
+import getTranslation from '@/services/get-translation';
 
 interface FormProps {
   sentence?: string;
@@ -21,6 +21,7 @@ export default function Form(props: FormProps) {
     handleSubmit,
     control,
     setError,
+    reset,
     formState: { errors },
   } = useForm<{ answer: string }>();
   const [confetti, setConfetti] = useState(false);
@@ -63,8 +64,9 @@ export default function Form(props: FormProps) {
       setError("answer", { type: "custom" });
     else {
       setConfetti(true);
-      setTimeout(() => setLastCorrect(data.answer), 5e4);
+      setTimeout(() => setLastCorrect(data.answer), 1e4);
     }
+    reset();
   });
 
   if (!(sentence && translation)) return null;
